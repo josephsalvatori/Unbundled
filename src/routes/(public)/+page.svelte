@@ -19,7 +19,7 @@ let selectableCategories = $derived.by(() => {
 
 	return categories.map(category => {
 
-		let companiesInCategory = companies.filter(company => company.categories.includes(category.name));
+		let companiesInCategory = companies.filter(company => (company?.categories || []).includes(category.name));
 
 		// now filter our companies that don't hit on the search term
 		if(search) {
@@ -55,7 +55,7 @@ let sortedCategories = $derived.by(() => {
 
 	let array = filterCategories.map(category => {
 
-		let companiesInCategory = companies.filter(company => company.categories.includes(category.name));
+		let companiesInCategory = companies.filter(company => (company?.categories || []).includes(category.name));
 
 		// now filter our companies that don't hit on the search term
 		if(search) {
@@ -87,8 +87,8 @@ let sortedCategories = $derived.by(() => {
 	<ToggleGroup.Root bind:value={selectedCategories} type="multiple" variant="text" size="none" class="items-start justify-start flex-wrap gap-y-[20px] gap-x-[30px]">
 		{#each selectableCategories as category}
 			{#if category.count > 0}
-				<ToggleGroup.Item value={category.value} class="group data-[state=on]:[&>div]:bg-[var(--bg-color)]" style="--bg-color:{category.color};">
-					<div class="h-[14px] w-[14px] bg-foreground rounded-full"></div>
+				<ToggleGroup.Item value={category.value} class="group data-[state=on]:[&>div]:bg-[var(--bg-color)] data-[state=on]:[&>div]:ring-2" style="--bg-color:{category.color};">
+					<div class="h-[14px] w-[14px] bg-foreground  ring-inset rounded-full"></div>
 					<span class="group-hover:underline! underline-offset-4">{category.name} ({category.count})</span>
 				</ToggleGroup.Item>
 			{/if}
@@ -110,14 +110,14 @@ let sortedCategories = $derived.by(() => {
 				{/if}
 			</div>
 			<div class="grid tb:grid-cols-2 gap-5">
-				<div>
+				<div class="flex flex-col gap-5">
 					{#each category.companies as company}
 						{#if (company.status || "").indexOf("Bundling") > -1}
 							<CardBundled category={category} data={company} />
 						{/if}
 					{/each}
 				</div>
-				<div>
+				<div class="flex flex-col gap-5">
 					{#each category.companies as company}
 						{#if (company.status || "").indexOf("Unbundling") > -1}
 							<CardBundled category={category} data={company} />

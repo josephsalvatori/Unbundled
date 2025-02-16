@@ -65,6 +65,8 @@ export async function load(event) {
 
 			COMPANY_COLUMN_HEADERS.forEach((h) => {
 
+				if(!com[h]) return;
+
 				if(h === "Categories") {
 					obj[h.toLowerCase()] = com[h].split(",").map((c) => c.trim());
 					return;
@@ -89,7 +91,7 @@ export async function load(event) {
 
 	// apply sort here?
 	if(companies.length > 0) {
-		console.log("apply sort or filter");
+		// console.log("apply sort or filter");
 	}
 
 	// now get companies

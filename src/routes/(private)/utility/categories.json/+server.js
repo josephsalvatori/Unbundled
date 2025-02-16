@@ -50,6 +50,8 @@ export async function GET({url}) {
 
 			CATEGORY_COLUMN_HEADERS.forEach((h) => {
 
+				if(!cat[h]) return;
+
 				if(h === "Sort_Key") {
 					obj["sortKey"] = (cat[h] ? parseInt(cat[h]) : null);
 					return;
