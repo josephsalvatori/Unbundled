@@ -21,6 +21,7 @@ export async function load(event) {
 		"Color_Font",
 		"Icon",
 		"Status",
+		"Date_Updated",
 		"Tag_1",
 		"Tag_2",
 		"Tag_3",
